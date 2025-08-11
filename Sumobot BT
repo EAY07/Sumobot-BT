@@ -1,0 +1,49 @@
+#include "BluetoothSerial.h"
+#define mot1 13
+#define mot2 12
+#define mot3 14
+#define mot4 27
+
+String device_name = "EXODIA";
+BluetoothSerial SerialBT;
+char dato;
+
+void setup() {
+  SerialBT.begin(device_name, true);
+  pinMode(mot1, OUTPUT);
+  pinMode(mot2, OUTPUT);
+  pinMode(mot3, OUTPUT);
+  pinMode(mot4, OUTPUT);
+}
+void loop() {
+  if (SerialBT.available()) {
+    dato = SerialBT.read();
+    
+    if (dato == 'a') { //frente
+      digitalWrite(mot1, LOW);
+      digitalWrite(mot2, HIGH);
+      digitalWrite(mot3, HIGH);
+      digitalWrite(mot4, LOW);
+    } else if (dato == 'b') { //izquierda
+      digitalWrite(mot1, LOW); 
+      digitalWrite(mot2, HIGH);
+      digitalWrite(mot3, LOW);
+      digitalWrite(mot4, HIGH);
+    } else if (dato == 'c') { //atras
+      digitalWrite(mot1, HIGH);
+      digitalWrite(mot2, LOW);
+      digitalWrite(mot3, LOW);
+      digitalWrite(mot4, HIGH);
+    } else if (dato == 'd') { //derecha
+      digitalWrite(mot1, HIGH);
+      digitalWrite(mot2, LOW);
+      digitalWrite(mot3, HIGH);
+      digitalWrite(mot4, LOW);
+    } else if (dato == '0') {
+      digitalWrite(mot1, LOW);
+      digitalWrite(mot2, LOW);
+      digitalWrite(mot3, LOW);
+      digitalWrite(mot4, LOW);
+    }
+  }
+}
